@@ -1,34 +1,54 @@
 "use strict";
-class Account {
-    constructor(id, name, email, _balance) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this._balance = _balance;
+class Ride {
+    start() {
+        Ride._activeRides++;
     }
-    deposit(amount) {
-        if (amount > 0) {
-            this._balance += amount;
-            console.log(`Deposited ${amount}. New balance is ${this._balance}`);
-        }
-        else {
-            console.log(`Deposit amount must be positive`);
-        }
+    stop() {
+        Ride._activeRides--;
     }
-    getBalance() {
-        return this._balance;
-    }
-    _calculateTax() {
-        return this._balance * 0.2;
-    }
-    getTax() {
-        return this._calculateTax();
+    static get activeRides() {
+        return Ride._activeRides;
     }
 }
-let account = new Account(1, "John Doe", "2g5wI@example.com", 1000);
-account.deposit(500);
-console.log(account.getTax());
-console.log(typeof account);
-const balance = account.getBalance();
-console.log(balance);
+Ride._activeRides = 0;
+class Person {
+    constructor(firstname, lastname) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
+    get fullName() {
+        return `${this.firstname} ${this.lastname}`;
+    }
+    walk() {
+        console.log(`${this.fullName} is walking`);
+    }
+}
+class Student extends Person {
+    constructor(firstname, lastname, studentId) {
+        super(firstname, lastname);
+        this.studentId = studentId;
+    }
+    get studentInfo() {
+        return `Student ID: ${this.studentId}`;
+    }
+    study() {
+        console.log(`${this.fullName} is studying`);
+    }
+}
+const student = new Student("John", "Doe", 12345);
+student.walk();
+student.study();
+console.log(student.studentInfo);
+class Teacher extends Person {
+    constructor(firstname, lastname, subject) {
+        super(firstname, lastname);
+        this.subject = subject;
+    }
+    teach() {
+        console.log(`${this.fullName} is teaching ${this.subject}`);
+    }
+}
+const teacher = new Teacher("Jane", "Smith", "Mathematics");
+teacher.walk();
+teacher.teach();
 //# sourceMappingURL=index.js.map
