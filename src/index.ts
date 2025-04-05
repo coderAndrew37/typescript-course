@@ -49,6 +49,10 @@ class Teacher extends Person {
   teach() {
     console.log(`${this.fullName} is teaching ${this.subject}`);
   }
+
+  override get fullName() {
+    return `Prof. ${super.fullName} `;
+  }
 }
 
 const teacher = new Teacher("Jane", "Smith", "Mathematics");
